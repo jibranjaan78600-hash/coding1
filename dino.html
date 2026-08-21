@@ -48,7 +48,7 @@ function draw(){
     }
     image(dpic, dx, dy, 70, 60);
     for (let i = 0; i < cactuces.length;i++){
-        image(cpic,cactuces[i].x,400,200,65,0,0,0,0);
+        image(cpic,cactuces[i].x,400,200,65);
         cactuces[i].x -= cactuces[i].cspeed;
         if (cactuces[i].x < dx + 60 && cactuces[i].x + 189 > dx && dy + 60 > 400) {
             resetitem()
