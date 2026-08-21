@@ -6,7 +6,92 @@
     <title>Document</title>
 </head>
 <body>
-    <script src=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"><script>
+    <script>
+        let dpic;
+let cpic;
+let score = 0;
+let cspeed = 0;
+let dx = 200;
+let cactuces = [];
+let jumping = false;
+let scoreaudio;
+let jumpaudio;
+let dy = 400;
+let startscreen = true;
+function preload(){
+    dpic = loadImage("d.png")
+    cpic = loadImage("c.png")
+}
+function setup(){
+    createCanvas(1000,500)
+    for (let o = 0; o < 2; o++){
+        cactuces.push({x: 1000 + o * 500,cspeed: 6})
+    }
+}
+function draw(){
+    if(startscreen){
+        background("#3BCE46")
+        textAlign(CENTER)
+        textSize(59)
+        text("HAPPY BIRTHDAY JIBRAN",width / 2,height / 2)
+    }
+    background("white");
+    stroke("black");
+    line(0,460,width,460);
+    noStroke();
+    if (keyIsDown(32) && dy === 400){
+        cspeed = -30;
+        jumping = true;
+        playsound();
+    }
+    dy += cspeed;
+    cspeed++;
+    if(dy >= 400){
+        dy = 400;
+        cspeed = 0;
+        jumping = false;
+    }
+    image(dpic, dx, dy, 70, 60);
+    for (let i = 0; i < cactuces.length;i++){
+        image(cpic,cactuces[i].x,400,200,65,0,0,0,0);
+        cactuces[i].x -= cactuces[i].cspeed;
+        if (cactuces[i].x < dx + 60 && cactuces[i].x + 189 > dx && dy + 60 > 400) {
+            resetitem()
+        }   
+        if (cactuces[i].x < -100){
+            cactuces[i].x = 1000;
+            score++
+            playsound();
+        }
+    }
+    fill("black");
+    textSize(24);
+    text("Score: " + score, 30, 40);
+}
+function resetitem(){
+    dy = 400;
+    dx = 200;
+    score = 0;
+    cspeed = 0;
+    jumping = false;
+    cactuces = [];
+    for (let o = 0; o < 2; o++){
+        cactuces.push({x: 1000 + o * 500,cspeed: 6})
+    }
+}
+function playsound(){
+    jumpaudio = new Audio("dj.mp3");
+    scoreaudio = new Audio("h.mp3")
+    Audio.play
+    if(keyIsDown(32)){
+        jumpaudio.play();    
+    }
+    if(score === 50 || score === 100){
+        scoreaudio.play();
+    }
+}
+    </script>
     <img src="https://thegemdev.itch.io/chrome-dino-game-sprites" alt="">
     <img src="https://commons.wikimedia.org/wiki/File:Chromium_T-Rex-obstacle-large-sprite.png" alt="">
 </body>
